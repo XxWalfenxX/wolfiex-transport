@@ -115,7 +115,7 @@ export default {
   setup() {
     const leftDrawerOpen = ref(false);
     const $q = useQuasar();
-    let darkModeEnabled = false;
+    let darkModeEnabled = $q.dark.isActive;
     if ($q.localStorage.has("darkMode")) {
       const darkModeStorage = $q.localStorage.getItem("darkMode");
       darkModeEnabled = darkModeStorage;

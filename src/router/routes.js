@@ -8,6 +8,10 @@ const routes = [
         path: "/tmb/metro",
         component: () => import("src/pages/TMB/LineasMetro.vue"),
       },
+      {
+        path: "/tmb/metro/:id",
+        component: () => import("src/pages/TMB/DetalleLineaMetro.vue"),
+      },
     ],
   },
 
