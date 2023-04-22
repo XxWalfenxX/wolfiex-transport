@@ -5,22 +5,33 @@
         <q-table
           flat
           bordered
-          title="Lineas de Metro"
+          title="Lineas de Bus"
           :rows="state.rows"
           :columns="state.columns"
           row-key="name"
           binary-state-sort
           :pagination="initialPagination"
           :grid="$q.screen.xs"
-          :rows-per-page-options="[0]"
           :visible-columns="['nombre', 'origen', 'destino']"
+          :filter="filter"
         >
+          <template v-slot:top-right>
+            <q-input
+            filled
+              debounce="300"
+              v-model="filter"
+              placeholder="Buscar"
+            >
+              <template v-slot:append>
+                <q-icon name="search" />
+              </template>
+            </q-input>
+          </template>
           <template v-slot:body="props">
             <q-tr :props="props" @click="onRowClick(props.row)">
               <q-td key="nombre" :props="props">
                 <q-avatar
                   font-size="19px"
-                  rounded
                   text-color="white"
                   :style="
                     (background =
@@ -53,12 +64,12 @@
   </div>
 </template>
 <script>
-import { defineComponent, reactive } from "vue";
-import { getLineasMetro } from "src/TMB/Metro.js";
+import { defineComponent, reactive, ref } from "vue";
+import { getLineasBus } from "src/TMB/Bus";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
-  name: "LineasMetro",
+  name: "LineasBus",
 
   setup() {
     const router = useRouter();
@@ -102,18 +113,19 @@ export default defineComponent({
       ],
     });
 
-    getLineasMetro().then((v) => {
+    getLineasBus().then((v) => {
       state.rows = v.features;
     });
 
     return {
       onRowClick: (row) => {
-        router.push("/tmb/metro/" + row.properties.CODI_LINIA);
+        router.push("/tmb/bus/" + row.properties.CODI_LINIA);
       },
       state,
       initialPagination: {
         sortBy: "orden",
       },
+      filter: ref(''),
     };
   },
 });

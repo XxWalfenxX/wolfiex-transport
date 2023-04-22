@@ -12,6 +12,14 @@ const routes = [
         path: "/tmb/metro/:id",
         component: () => import("src/pages/TMB/DetalleLineaMetro.vue"),
       },
+      {
+        path: "/tmb/bus",
+        component: () => import("src/pages/TMB/LineasBus.vue"),
+      },
+      {
+        path: "/tmb/bus/:id",
+        component: () => import("src/pages/TMB/DetalleLineaBus.vue"),
+      },
     ],
   },
 

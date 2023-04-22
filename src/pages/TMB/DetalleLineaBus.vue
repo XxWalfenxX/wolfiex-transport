@@ -7,36 +7,35 @@
             <q-avatar
               size="100px"
               font-size="50px"
-              rounded
               text-color="white"
               :style="
                 (background =
                   'background: #' +
-                  state.linea[0].properties.COLOR_LINIA +
+                  state.parada[0].properties.COLOR_REC +
                   ' !important')
               "
             >
-              {{ state.linea[0].properties.NOM_LINIA }}
+              {{ state.parada[0].properties.NOM_LINIA }}
             </q-avatar>
           </q-timeline-entry>
           <q-timeline-entry v-if="!state.loading" heading class="desc-linea">
-            {{ state.linea[0].properties.DESC_SERVEI }}
+            {{ state.parada[0].properties.DESC_LINIA }}
           </q-timeline-entry>
 
           <q-timeline-entry
-            v-for="parada in state.linea.sort(
-              (a, b) => a.properties.ORDRE_ESTACIO - b.properties.ORDRE_ESTACIO
+            v-for="parada in state.parada.sort(
+              (a, b) => a.properties.ORDRE - b.properties.ORDRE
             )"
             :key="parada.id"
-            :title="parada.properties.NOM_ESTACIO"
+            :title="parada.properties.NOM_PARADA"
             color="red"
           >
           <div class="q-pa-md q-gutter-sm">
             <template v-for="corresp in state.corresp" :key="corresp.id">
                 <q-avatar
                 v-if="
-                  parada.properties.CODI_ESTACIO ===
-                  corresp.properties.CODI_ESTACIO
+                  parada.properties.CODI_PARADA ===
+                  corresp.properties.CODI_PARADA
                 "
                   size="30px"
                   font-size="15px"
@@ -61,25 +60,26 @@
 </template>
 <script>
 import { defineComponent, reactive } from "vue";
-import { getEstacionesMetro, getCorrespLineaMetro } from "src/TMB/Metro";
+import { getParadasBus, getCorrespParadasBus } from "src/TMB/Bus";
 import { useRoute } from "vue-router";
 
 export default defineComponent({
-  name: "DetalleLineaMetro",
+  name: "DetalleLineaBus",
 
   setup() {
     const route = useRoute();
 
     const state = reactive({
-      linea: [],
+      parada: [],
       corresp: [],
       loading: true,
     });
 
-    getEstacionesMetro(route.params.id).then((v) => {
-      state.linea = v.features;
+    getParadasBus(route.params.id).then((v) => {
+      state.parada = v.features;
       state.loading = false;
-      getCorrespLineaMetro(route.params.id).then((v) => {
+      console.log(v.features);
+      getCorrespParadasBus(route.params.id).then((v) => {
         state.corresp = v.features;
       });
     });

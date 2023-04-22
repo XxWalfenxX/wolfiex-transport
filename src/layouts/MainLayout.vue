@@ -74,23 +74,23 @@
 
     <q-drawer v-model="leftDrawerOpen" side="left" overlay bordered>
       <div class="q-pa-md" style="max-width: 350px">
-        <q-toolbar class="bg-red text-white shadow-2">
+        <q-toolbar class="bg-red-10 text-white shadow-2">
           <q-toolbar-title>TMB</q-toolbar-title>
         </q-toolbar>
 
         <q-list bordered>
           <q-item class="q-my-sm" clickable v-ripple to="/tmb/metro">
             <q-item-section avatar>
-              <q-avatar size="50px" text-color="white" icon="subway" />
+              <q-avatar size="50px" color="red-10" text-color="white" icon="subway" />
             </q-item-section>
 
             <q-item-section>
               <q-item-label>Metro</q-item-label>
             </q-item-section>
           </q-item>
-          <q-item class="q-my-sm" clickable v-ripple to="/bus">
+          <q-item class="q-my-sm" clickable v-ripple to="/tmb/bus">
             <q-item-section avatar>
-              <q-avatar size="50px" text-color="white" icon="directions_bus" />
+              <q-avatar size="50px"  color="red-10" text-color="white" icon="directions_bus" />
             </q-item-section>
 
             <q-item-section>
